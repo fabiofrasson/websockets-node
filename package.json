@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "alphaServer": "node src/alpha.js"
+    "alphaServer": "node src/alpha.js",
+    "bravoServer": "node src/bravo.js"
   },
   "keywords": [],
   "author": "",

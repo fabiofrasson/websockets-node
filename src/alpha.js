@@ -26,11 +26,12 @@ websocketServer.on("connection", (socket) => {
   bravoServerConnection.on("open", function () {
    console.log("Opening connection, you jerk!")
    this.send(message.toString());
+   bravoServerConnection.close();
   })
 
   bravoServerConnection.on("error", function () {
    console.log("Error, you jerk!")
-   messagesOnMemory.push(message);
+   messagesOnMemory.push(message.toString());
   })
  })
 })
@@ -40,7 +41,7 @@ function convertMessageToJson(buffer) {
  return JSON.parse(message);
 }
 
-const insertQuery = "INSERT INTO coordinate (LATITUDE, LONGITUDE, COMMENT) VALUES (?, ?, ?)";
+const insertQuery = "INSERT INTO coordinatesAlpha (LATITUDE, LONGITUDE, COMMENT) VALUES (?, ?, ?)";
 
 function saveDataToDb(data) {
  try {
@@ -54,7 +55,7 @@ function saveDataToDb(data) {
 
 httpServer.once("listening", () => {
 
- const query = "CREATE TABLE IF NOT EXISTS coordinate(ID INT AUTO INCREMENT PRIMARY KEY, LATITUDE VARCHAR NOT NULL, LONGITUDE VARCHAR NOT NULL, COMMENT VARCHAR(512) NOT NULL)";
+ const query = "CREATE TABLE IF NOT EXISTS coordinatesAlpha(ID INTEGER PRIMARY KEY AUTOINCREMENT, LATITUDE VARCHAR NOT NULL, LONGITUDE VARCHAR NOT NULL, COMMENT VARCHAR(512) NOT NULL)";
 
  alphaPath.exec(query, (err) => {
   if (err) {
