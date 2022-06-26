@@ -5,11 +5,33 @@ const alphaDb = sqlite3.verbose().Database;
 const alphaPath = new alphaDb("./src/databases/alpha.db");
 const httpServer = http.createServer();
 const websocketServer = new WebSocketServer({ server: httpServer });
+const { token } = require("../constants")
+
+const messagesOnMemory = [];
 
 websocketServer.on("connection", (socket) => {
  // parâmetro socket da callback é a própria conexão
  socket.on("message", (message) => {
+
+  if (message.toString() == token) {
+   socket.send(JSON.stringify(messagesOnMemory));
+   return;
+  }
+
   saveDataToDb(convertMessageToJson(message));
+
+  // conectar com o servidor Bravo
+  const bravoServerConnection = new WebSocket("ws://localhost:8091")
+
+  bravoServerConnection.on("open", function () {
+   console.log("Opening connection, you jerk!")
+   this.send(message.toString());
+  })
+
+  bravoServerConnection.on("error", function () {
+   console.log("Error, you jerk!")
+   messagesOnMemory.push(message);
+  })
  })
 })
 
