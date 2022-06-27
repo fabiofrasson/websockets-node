@@ -35,5 +35,5 @@ Verificar o registro salvo em ambos os bancos (Alpha e Bravo), o que caracteriza
 O segundo cenário é aquele em que o Servidor Bravo para de funcionar, bastando seguir os seguintes passos:
 1. Apertar as teclas ``CTRL + C`` no terminal de seu editor/IDE (na janela onde o script do Servidor Bravo foi rodado), para parar o respectivo servidor; 
 2. Repetir a sequência acima no navegador, de forma que seja enviada uma nova coordenada para ser salva no servidor principal (Servidor Alpha);
-3. Uma vez que o Servidor Bravo não está disponível, o registro será salvo em memória (porém será persistido no primeiro banco de dados);
+3. Uma vez que o Servidor Bravo não está disponível, o registro será salvo em memória (porém será persistido no primeiro banco de dados - Alpha);
 4. Ao iniciar o Servidor Bravo, o registro será persistido no segundo banco de dados a partir do array que ficou em memória.
